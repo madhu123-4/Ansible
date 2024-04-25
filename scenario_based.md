@@ -233,4 +233,29 @@ To create 100 files at a time with the specific name "madhu.txt" using Ansible, 
 
 Replace `/path/to/your/directory/` with the path to the directory where you want to create the files. This playbook uses the `file` module with the `state: touch` option to create 100 files named `madhu_1.txt`, `madhu_2.txt`, and so on, up to `madhu_100.txt` in the specified directory.
 
-### 
+### how to create a git repository and clone the repository to git CLI  by using ansible playbook?
+To create a Git repository and clone it to the Git CLI using an Ansible playbook, you can use the `git` module. Here's an example playbook that demonstrates this:
+
+```yaml
+---
+- name: Create a Git repository and clone it
+  hosts: localhost
+  tasks:
+    - name: Create a directory for the Git repository
+      file:
+        path: "/path/to/your/repository"
+        state: directory
+
+    - name: Initialize a Git repository
+      git:
+        repo: "https://github.com/example/repository.git"
+        dest: "/path/to/your/repository"
+        clone: yes
+
+    - name: Clone the repository to the Git CLI
+      git:
+        repo: "/path/to/your/repository"
+        dest: "/path/to/clone"
+```
+
+Replace `/path/to/your/repository` with the path where you want to create the Git repository and `/path/to/clone` with the path where you want to clone the repository on the local machine. Adjust the `repo` parameter to point to the URL of the Git repository you want to initialize and clone. 
