@@ -138,3 +138,59 @@ ansible all -m user -a "name=new_user state=present"
 ```
 
 Replace `new_user` with the username you want to create. This command will create the specified user on all servers in your inventory.
+
+### Install the Jenkins tool by using Ansible playbook.
+
+Here's a modified and streamlined version of your playbook to install Jenkins using Ansible:
+
+```yaml
+---
+- name: Install Jenkins using Ansible
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Install Java
+      yum:
+        name: java-11-openjdk-devel
+        state: present
+
+    - name: Install wget
+      yum:
+        name: wget
+        state: present
+
+    - name: Download Jenkins Repo
+      get_url:
+        url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: Add Jenkins repo key
+      rpm_key:
+        state: present
+        key: http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Reload systemd to pick up config changes
+      systemd:
+        daemon_reload: yes
+
+    - name: Start and enable Jenkins service
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
+```
+
+This playbook performs the following actions:
+1. Installs Java and wget if not already installed.
+2. Downloads the Jenkins repository configuration file and saves it to `/etc/yum.repos.d/jenkins.repo`.
+3. Adds the Jenkins repository key to the RPM database.
+4. Installs the Jenkins package using `yum`.
+5. Reloads systemd to pick up any configuration changes.
+6. Starts and enables the Jenkins service to ensure it starts on system boot.
+
+Please note that you might need to adjust the URL for the Jenkins repository configuration file (`jenkins.repo`) and the Jenkins repository key (`jenkins-ci.org.key`) based on the actual URLs provided by the Jenkins project.
