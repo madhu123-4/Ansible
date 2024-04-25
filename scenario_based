@@ -1,0 +1,16 @@
+1)You have an ansible playbook that configures a server with a specific package. You want to run the playbook on a group of servers, but you want to skip the task that installs the package on a specific server. How would you do this?
+
+You can achieve this by using Ansible's `when` condition to skip the task based on a condition. Here's an example:
+
+```yaml
+- name: Install package
+  hosts: your_server_group
+  tasks:
+    - name: Install package
+      package:
+        name: your_package
+        state: present
+      when: inventory_hostname != 'specific_server'
+```
+
+In this example, replace `your_server_group` with the group of servers you want to configure and replace `specific_server` with the name of the server where you want to skip the package installation task. This condition (`when: inventory_hostname != 'specific_server'`) will skip the task when the playbook is run on the `specific_server` but will execute it on all other servers in the group.
