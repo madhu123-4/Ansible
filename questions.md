@@ -113,3 +113,20 @@ Suppose you want to check the status of a service on a remote host using the `sy
 In this example, the `systemd` module is used to check the status of the `httpd` service, and the output is saved into the `service_status` variable. The `when` condition in the second task uses filters to check if the service status has changed and if the status is not `running`, in which case it restarts the service.
 
 In these examples, variables are used to make playbooks more dynamic, reusable, and flexible, demonstrating the advantages of using variables in Ansible.
+### Q) What is a push-based configuration in Ansible?
+
+In Ansible, a push-based configuration refers to a mode of operation where the control node (the machine running Ansible) pushes configurations and executes tasks directly on the managed nodes (the machines being managed by Ansible). This is in contrast to a pull-based configuration, where the managed nodes actively pull configurations from a central server.
+
+In a push-based configuration:
+
+1. **Control Node:** The control node contains the inventory of managed nodes and the playbooks or commands to be executed on these nodes.
+
+2. **Managed Nodes:** These are the target machines that will be configured and managed by Ansible. They do not require any special software or agent to be installed, as Ansible uses SSH (or WinRM for Windows) to communicate with them.
+
+3. **Execution:** When a playbook or command is executed on the control node, Ansible establishes SSH connections to the managed nodes and pushes the configuration changes or executes tasks directly on them.
+
+4. **Result Reporting:** Ansible collects the results of the tasks executed on the managed nodes and reports them back to the user on the control node.
+
+Push-based configuration is the default mode of operation for Ansible and is well-suited for managing and configuring small to medium-sized infrastructures. It provides simplicity and ease of use, as there is no need to set up and maintain a separate configuration management server.
+
+
