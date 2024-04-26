@@ -259,3 +259,64 @@ To create a Git repository and clone it to the Git CLI using an Ansible playbook
 ```
 
 Replace `/path/to/your/repository` with the path where you want to create the Git repository and `/path/to/clone` with the path where you want to clone the repository on the local machine. Adjust the `repo` parameter to point to the URL of the Git repository you want to initialize and clone. 
+
+### Question: If you are given a task to manage a new remote machine using Ansible, what is the first thing you would do?
+
+Answer: The first thing to do is to add the new machine’s details in the Ansible inventory file. Then, set up SSH key-based authentication between the Ansible controller node and the new remote machine for secure communication.
+### Question: How would you handle sensitive information like passwords in your Ansible Playbook?
+
+Answer: Ansible provides a tool called ansible-vault to encrypt sensitive data. So, you can put all sensitive data inside a vault and reference it in the playbook.
+### Question: If an Ansible playbook failed at a particular task, how would you debug it?
+
+Answer: Ansible provides a --step and --start-at-task debugging option. We can use these options to start executing the playbook at the failed task and inspect what’s going wrong.
+### Question: You have a common configuration that needs to be shared across multiple playbooks. How would you achieve this?
+
+Answer: In Ansible, we can create a ‘roles’ for such cases. Roles are a way to group multiple tasks together into one container to do the automation in very effective manner.
+### Question: How would you run a single task against all the development servers without writing a playbook?
+
+Answer: Ansible provides ad-hoc commands that could be used to do quick tasks. An ad-hoc command looks like ansible <group> -m <module> -a <arguments>
+### Question: You have some tasks that should only run on a specific type of OS. How can you manage this in your playbook?
+
+Answer: Ansible gathers facts about the remote hosts and one such fact is the OS type. We can use conditionals (like the when clause) in our playbook to run certain tasks only when the OS type matches our requirements.
+### Question: How can you manage different environments like Dev, QA, and Prod in Ansible?
+
+Answer: This can be handled using Ansible inventory files. You can create separate inventory files for each environment, and specify the environment you want to run the playbook against when executing the ansible-playbook command.
+### Question: How can you reduce playbook run time which is running against hundreds of machines?
+
+Answer: We can increase the ‘forks’ in the ansible configuration file (ansible.cfg). This controls the number of parallel processes to be used for the playbook execution.
+### Question: How can you ensure a task is only run when a file changes?
+
+Answer: Ansible provides a ‘notify’ feature that can be used to trigger a handler only when a change is noticed on a system.
+### Question: How can you create a new user across your entire server infrastructure?
+
+Answer: Ansible provides a module called user for creating a user. We can write a simple playbook using the user module and run it against the server group defined in the inventory file.
+### Question: How would you copy a file from the Ansible control machine to remote hosts?
+
+Answer: You can use the copy module in Ansible to copy a file from the control machine to the remote hosts. The src parameter is used to specify the source file on the control machine and the dest parameter to specify the destination on the remote host.
+### Question: How can you execute a command on a remote machine?
+
+Answer: Ansible has several modules to execute commands on remote machines. For instance, command and shell modules can be used for this purpose. The key difference is that shell module executes the command through a shell /bin/sh on the remote node, allowing you to use shell features like shell pipes, etc.
+### Question: How do you manage different software versions to be installed across your infrastructure?
+
+Answer: This can be managed using Ansible variables. The software version can be defined as a variable in an Ansible playbook, and this variable can be altered according to the environment or requirements.
+### Question: How would you perform a rolling update on your servers using Ansible?
+
+Answer: Ansible provides a feature called ‘rolling update’ which can be used to update tasks on batch of hosts at a time using serial keyword.
+### Question: How can you template a file in Ansible?
+
+Answer: Ansible uses the Jinja2 templating engine to template files. The template module is used to create files on the remote hosts from templates on the control machine. Variables can be used in the templates and they will be replaced with their respective values when the task is executed.
+### Question: If you have a task that needs to be run regularly, how would you automate this using Ansible?
+
+Answer: While Ansible itself isn’t a scheduling tool, it integrates well with cron on Unix-like systems and the Scheduled Tasks feature on Windows. You can write a playbook for the task and then add a cron job or Scheduled Task to run the playbook at the desired intervals.
+### Question: How can you run a playbook on a specific group of hosts?
+
+Answer: In the Ansible playbook, there is a hosts field at the top where we can specify the group of hosts from our inventory on which we want to run the playbook.
+### Question: How can you register the output of a command and use it in another task in Ansible?
+
+Answer: Ansible provides a register keyword which can be used to store the output of a task. The registered value can then be used in subsequent tasks using Jinja2 templating.
+### Question: How do you ensure idempotency in your Ansible playbooks?
+
+Answer: Ansible modules are built to be idempotent, ensuring that repeated operations will always result in the same state and not change anything else. As long as you’re using Ansible modules, the idempotency should be handled automatically.
+### Question: How can you gather facts about a remote host using Ansible?
+
+Answer: Ansible has a setup module which is used to gather facts about remote hosts. It’s automatically included in plays, but you can also call it manually to get system facts.
